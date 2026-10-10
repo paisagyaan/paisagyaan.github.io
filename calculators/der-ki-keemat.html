@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>देरी की क़ीमत calculator | Paisa Gyaan</title>
+  <meta name="description" content="हर महीने की बचत कुछ साल देर से शुरू करने पर आख़िरी रक़म में कितना फ़र्क़ आता है? अपने आँकड़े भरकर देखिए।">
+  <link rel="icon" href="../assets/logo.png">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-calc="delay">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../"><img src="../assets/logo.png" alt=""> <span>Paisa <span class="accent">Gyaan</span></span></a>
+      <nav class="nav" aria-label="मुख्य">
+        <a href="../#calculators">Calculators</a>
+        <a href="credit-card.html">Credit card</a>
+        <a href="der-ki-keemat.html" aria-current="page">देरी की क़ीमत</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section style="border-top:0">
+      <div class="wrap">
+        <h1>देरी की क़ीमत</h1>
+        <p class="sub">हर महीने की बचत कुछ साल देर से शुरू हो, तो आख़िरी रक़म में कितना फ़र्क़ आता है? यह गणित का उदाहरण है, किसी रिटर्न का वादा या अनुमान नहीं।</p>
+
+        <div class="calc">
+          <form class="card" onsubmit="return false">
+            <div class="field">
+              <label for="d-monthly">हर महीने की रक़म (₹)</label>
+              <input id="d-monthly" type="number" inputmode="decimal" min="0" step="500" value="5000">
+            </div>
+            <div class="field">
+              <label for="d-rate">मानी हुई सालाना दर (%)</label>
+              <input id="d-rate" type="number" inputmode="decimal" min="0" max="30" step="0.5" value="10">
+              <small>यह दर आप ख़ुद चुनते हैं। असल में रिटर्न घटते-बढ़ते रहते हैं और नुक़सान भी हो सकता है।</small>
+            </div>
+            <div class="field">
+              <label for="d-years">कुल अवधि (साल)</label>
+              <input id="d-years" type="number" inputmode="numeric" min="1" max="50" step="1" value="30">
+            </div>
+            <div class="field">
+              <label for="d-wait">कितने साल देर से शुरू?</label>
+              <input id="d-wait" type="number" inputmode="numeric" min="0" max="50" step="1" value="5">
+            </div>
+          </form>
+
+          <div class="results">
+            <div class="card green">
+              <p class="result-title">आज से शुरू करें, तो</p>
+              <dl class="rows">
+                <div><dt>कुल जमा</dt><dd id="d-now-invested"></dd></div>
+                <div><dt>आख़िरी रक़म</dt><dd id="d-now-value" class="big"></dd></div>
+              </dl>
+            </div>
+
+            <div class="card coral">
+              <p class="result-title"><span id="d-wait-echo"></span> साल देर से शुरू करें, तो</p>
+              <dl class="rows">
+                <div><dt>कुल जमा</dt><dd id="d-later-invested"></dd></div>
+                <div><dt>आख़िरी रक़म</dt><dd id="d-later-value" class="big"></dd></div>
+              </dl>
+            </div>
+
+            <div class="card gold">
+              <p class="result-title">देरी की क़ीमत</p>
+              <dl class="rows">
+                <div><dt>जमा में कमी</dt><dd id="d-gap-invested"></dd></div>
+                <div><dt>आख़िरी रक़म में कमी</dt><dd id="d-gap-value" class="big"></dd></div>
+                <div><dt>कमी, बचाई गई जमा की</dt><dd id="d-ratio"></dd></div>
+              </dl>
+              <div class="bars">
+                <div>
+                  <div class="bar-label"><span>आज से शुरू</span><span id="d-bar-now-val"></span></div>
+                  <div class="bar-track"><div class="bar-fill" id="d-bar-now"></div></div>
+                </div>
+                <div>
+                  <div class="bar-label"><span>देर से शुरू</span><span id="d-bar-later-val"></span></div>
+                  <div class="bar-track"><div class="bar-fill coral" id="d-bar-later"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="margin-top:36px">यह हिसाब किन मान्यताओं पर है</h2>
+        <ul class="assumptions">
+          <li>हर महीने की शुरुआत में एक ही तय रक़म जमा होती है।</li>
+          <li>पैसा पूरी अवधि में एक ही दर (<span id="d-rate-echo"></span>% सालाना) से बढ़ता है, और हर महीने जुड़ता है।</li>
+          <li>महँगाई, tax और किसी तरह के ख़र्च या fee शामिल नहीं हैं।</li>
+          <li>दोनों मामलों में पैसा एक ही तारीख़ को निकाला जाता है; देर से शुरू करने वाला उतने साल कम जमा करता है।</li>
+        </ul>
+        <p class="note">असल दुनिया में कोई भी निवेश हर साल एक जैसी दर से नहीं बढ़ता। यह calculator सिर्फ़ यह दिखाता है कि समय का असर कितना बड़ा होता है। यह किसी product की सलाह या किसी रिटर्न का वादा नहीं है।</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="links">
+        <a href="../">Home</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms</a>
+      </div>
+      <p>यह वेबसाइट और हमारे वीडियो सिर्फ़ शिक्षा के लिए हैं। यह निवेश, टैक्स या क़ानूनी सलाह नहीं है।</p>
+      <p class="en">Educational content only, not investment advice. I am not a SEBI-registered adviser.</p>
+    </div>
+  </footer>
+  <script src="../assets/calc.js"></script>
+</body>
+</html>

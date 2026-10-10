@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Credit card minimum due calculator | Paisa Gyaan</title>
+  <meta name="description" content="सिर्फ़ minimum due भरने पर credit card का क़र्ज़ कितने साल चलता है? अपने आँकड़े भरकर देखिए।">
+  <link rel="icon" href="../assets/logo.png">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body data-calc="credit-card">
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../"><img src="../assets/logo.png" alt=""> <span>Paisa <span class="accent">Gyaan</span></span></a>
+      <nav class="nav" aria-label="मुख्य">
+        <a href="../#calculators">Calculators</a>
+        <a href="credit-card.html" aria-current="page">Credit card</a>
+        <a href="der-ki-keemat.html">देरी की क़ीमत</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section style="border-top:0">
+      <div class="wrap">
+        <h1>Credit card: minimum due का असली ख़र्च</h1>
+        <p class="sub">अपने card के आँकड़े भरिए। नतीजे तुरंत बदलते हैं। आपके भरे हुए आँकड़े इसी browser में रहते हैं; कहीं नहीं भेजे जाते।</p>
+
+        <div class="calc">
+          <form class="card" onsubmit="return false">
+            <div class="field">
+              <label for="cc-balance">बकाया रक़म (₹)</label>
+              <input id="cc-balance" type="number" inputmode="decimal" min="0" step="1000" value="50000">
+            </div>
+            <div class="field">
+              <label for="cc-rate">ब्याज दर (% हर महीने)</label>
+              <input id="cc-rate" type="number" inputmode="decimal" min="0" max="10" step="0.05" value="3.5">
+              <small>आपके card की दर statement या bank की शर्तों (MITC) में लिखी होती है।</small>
+            </div>
+            <div class="field">
+              <label for="cc-min">Minimum due (बकाया का %)</label>
+              <input id="cc-min" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="5">
+            </div>
+            <div class="field">
+              <label for="cc-gst">ब्याज पर GST (%)</label>
+              <input id="cc-gst" type="number" inputmode="decimal" min="0" max="50" step="1" value="18">
+            </div>
+            <div class="field">
+              <label for="cc-pay">आप हर महीने कितना भर सकते हैं? (₹)</label>
+              <input id="cc-pay" type="number" inputmode="decimal" min="0" step="500" value="5000">
+            </div>
+          </form>
+
+          <div class="results">
+            <div class="card gold">
+              <p class="result-title">पहला महीना: minimum due कहाँ जाता है</p>
+              <dl class="rows">
+                <div><dt>आपने भरा (minimum due)</dt><dd id="cc-first-pay"></dd></div>
+                <div><dt>उस महीने का ब्याज</dt><dd id="cc-first-interest"></dd></div>
+                <div><dt>ब्याज पर GST</dt><dd id="cc-first-gst"></dd></div>
+                <div><dt>असली क़र्ज़ घटा</dt><dd id="cc-first-reduced" class="big"></dd></div>
+              </dl>
+            </div>
+
+            <div class="card coral">
+              <p class="result-title">सिर्फ़ minimum due भरते रहें, तो</p>
+              <dl class="rows">
+                <div><dt>1 साल बाद बकाया</dt><dd id="cc-min-1y"></dd></div>
+                <div><dt>5 साल बाद बकाया</dt><dd id="cc-min-5y" class="big"></dd></div>
+                <div><dt>5 साल में कुल भुगतान</dt><dd id="cc-min-paid"></dd></div>
+              </dl>
+              <div class="bars">
+                <div>
+                  <div class="bar-label"><span>आज का बकाया</span><span id="cc-bar-start-val"></span></div>
+                  <div class="bar-track"><div class="bar-fill gold" id="cc-bar-start"></div></div>
+                </div>
+                <div>
+                  <div class="bar-label"><span>5 साल बाद का बकाया</span><span id="cc-bar-5y-val"></span></div>
+                  <div class="bar-track"><div class="bar-fill coral" id="cc-bar-5y"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card green">
+              <p class="result-title">हर महीने <span id="cc-pay-echo"></span> भरें, तो</p>
+              <div id="cc-fixed-ok">
+                <dl class="rows">
+                  <div><dt>क़र्ज़ ख़त्म होगा</dt><dd id="cc-fixed-months" class="big"></dd></div>
+                  <div><dt>कुल भुगतान</dt><dd id="cc-fixed-paid"></dd></div>
+                  <div><dt>बकाया से ऊपर चुकाया (ब्याज + GST)</dt><dd id="cc-fixed-extra"></dd></div>
+                </dl>
+              </div>
+              <p id="cc-never" class="warn" hidden>इतनी रक़म से यह क़र्ज़ कभी ख़त्म नहीं होगा। पहले महीने का ब्याज और GST ही <span id="cc-never-charge"></span> है; भुगतान इससे ज़्यादा होना चाहिए।</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="margin-top:36px">यह हिसाब किन मान्यताओं पर है</h2>
+        <ul class="assumptions">
+          <li>Card से कोई नई ख़रीदारी नहीं होती।</li>
+          <li>हर महीने बकाया पर ब्याज लगता है, और उस ब्याज पर GST।</li>
+          <li>Minimum due, बकाया का तय प्रतिशत है (कम से कम ₹200)।</li>
+          <li>Late fee, सालाना fee या दूसरे charges शामिल नहीं हैं।</li>
+          <li>असली cards में ब्याज रोज़ के हिसाब से जुड़ता है और minimum due का formula bank के हिसाब से अलग होता है। इसलिए आपके statement के आँकड़े इससे कुछ अलग होंगे।</li>
+        </ul>
+        <p class="note">यह एक उदाहरण दिखाने वाला calculator है, किसी bank का आधिकारिक हिसाब नहीं। सही आँकड़ों के लिए अपना statement और card की शर्तें देखिए।</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="links">
+        <a href="../">Home</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms</a>
+      </div>
+      <p>यह वेबसाइट और हमारे वीडियो सिर्फ़ शिक्षा के लिए हैं। यह निवेश, टैक्स या क़ानूनी सलाह नहीं है।</p>
+      <p class="en">Educational content only, not investment advice. I am not a SEBI-registered adviser.</p>
+    </div>
+  </footer>
+  <script src="../assets/calc.js"></script>
+</body>
+</html>
